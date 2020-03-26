@@ -90,6 +90,21 @@ public class Player extends Item{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player, getX(), getY(), getWidth(), getHeight(), null);
+       switch(control){
+            case 1:
+                g.drawImage(animationRight.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            break;
+            case 2:
+                g.drawImage(animationUp.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            break;
+            case 3:
+                g.drawImage(animationLeft.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            break;
+            case 4:
+                g.drawImage(animationDown.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            break;
+            default:
+                 g.drawImage(animationIdle.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+        }
     }
 }
