@@ -12,8 +12,8 @@ import java.awt.Graphics;
  *
  * @author Rodrigo
  */
-class GameOver extends Item{
-    
+class GameOver extends Item {
+
     public GameOver(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
@@ -24,7 +24,7 @@ class GameOver extends Item{
 
     @Override
     public void render(Graphics g) {
-      g.drawImage(Assets.over, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(Assets.over, getX(), getY(), getWidth(), getHeight(), null);
 
     }
 }

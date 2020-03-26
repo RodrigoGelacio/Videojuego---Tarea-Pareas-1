@@ -8,7 +8,8 @@ package videogame;
 
 /**
  *
- * @author antoniomejorado
+ * @author Sergio Tapia
+ * @Author Rodrigo Torres
  */
 public class VideoGame {
 

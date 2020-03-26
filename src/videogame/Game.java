@@ -6,13 +6,15 @@
 package videogame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 
 /**
  *
- * @author antoniomejorado
+ * @author SergioT A00822497
+ * @author RodrigoT A00825924
  */
 public class Game implements Runnable {
 
@@ -25,6 +27,9 @@ public class Game implements Runnable {
     private int height;             // height of the window
     private Thread thread;          // thread to create the game
     private boolean running;        // to set the game
+    private boolean paused;
+    private int pauseDuration;          // to set an interval for pausing
+    private int pauseTime;   // to count the frames between pauses
     private Player player;          // to use a player
     private Scoreboard scoreboard;
     private Vidas vidas;
@@ -46,6 +51,8 @@ public class Game implements Runnable {
         this.width = width;
         this.height = height;
         running = false;
+        paused = false;
+        pauseDuration = 10;
         keyManager = new KeyManager(this);
     }
 
@@ -94,10 +101,10 @@ public class Game implements Runnable {
         }
         for (int i = 1; i <= azar2; i++) {
             //lol[i] = new Enemy(getWidth() - 100, (int) (Math.random() * getHeight()), 1, 100, 100, this);
-            Good good = new Good((int) (Math.random() * getWidth()+100) + getWidth(), (int) (Math.random() * getHeight()) - 100, 1, 80, 80, this);
+            Good good = new Good((int) (Math.random() * getWidth() + 100) + getWidth(), (int) (Math.random() * getHeight()) - 100, 1, 80, 80, this);
             for (Good g : listaGood) {
                 while (good.getY() >= g.getY() && good.getY() <= g.getY() + 200) {
-                    g = new Good((int) (Math.random() * getWidth()+100) + getWidth(), (int) (Math.random() * getHeight()) - 100, 1, 80, 80, this);
+                    g = new Good((int) (Math.random() * getWidth() + 100) + getWidth(), (int) (Math.random() * getHeight()) - 100, 1, 80, 80, this);
                 }
             }
             listaGood.add(good);
@@ -151,46 +158,52 @@ public class Game implements Runnable {
     }
 
     private void tick() {
-       if(vidas.getVidas() > 0){
         keyManager.tick();
-        // avancing player with colision
-        player.tick();
-        for (Enemy e : lista) {
-            e.tick();
-            if (e.getX() + 80 >= getWidth()) {
-                e.setX((int) (Math.random() * 1) - 100);
-                e.setY((int) (Math.random() * getHeight()) - 100);
-            }
-            if (player.collision(e)) {
-                counter++;
-                if(counter == 3){
-                    vidas.setVidas(vidas.getVidas() - 1);
-                    counter =0;
-                }
-              e.setX((int) (Math.random() * 1) - 100);
-              e.setY((int) (Math.random() * getHeight()) - 100);
-            }
-        }   
-        for(Good l: listaGood){
-            l.tick();
-            if(player.collision(l)){
-                scoreboard.setScore(scoreboard.getScore() + 10);
-                l.setY((int) (Math.random() * getHeight()) - 100);
-                l.setX((int) (Math.random() * getWidth()+100) + getWidth());
-                jump();
-            }
-            if(l.getX() < 0){
-                 l.setX((int) (Math.random() * getWidth()+100) + getWidth());
-                 l.setY((int) (Math.random() * getHeight()) - 100);
+        pauseTime++;
+        if (keyManager.p) {
+            if (pauseTime > pauseDuration) {
+                paused = !paused;
+                pauseTime = 0;
             }
         }
-        scoreboard.tick();
-        vidas.tick();
-       }
-       else {
-       bGameOver = true;
-       
-       }
+
+        if (vidas.getVidas() > 0 && !paused) {
+
+            player.tick();
+            for (Enemy e : lista) {
+                e.tick();
+                if (e.getX() + 80 >= getWidth()) {
+                    e.setX((int) (Math.random() * 1) - 100);
+                    e.setY((int) (Math.random() * getHeight()) - 100);
+                }
+                if (player.collision(e)) {
+                    counter++;
+                    if (counter == 3) {
+                        vidas.setVidas(vidas.getVidas() - 1);
+                        counter = 0;
+                    }
+                    e.setX((int) (Math.random() * 1) - 100);
+                    e.setY((int) (Math.random() * getHeight()) - 100);
+                }
+            }
+            for (Good l : listaGood) {
+                l.tick();
+                if (player.collision(l)) {
+                    scoreboard.setScore(scoreboard.getScore() + 10);
+                    l.setY((int) (Math.random() * getHeight()) - 100);
+                    l.setX((int) (Math.random() * getWidth() + 100) + getWidth());
+                    jump();
+                }
+                if (l.getX() < 0) {
+                    l.setX((int) (Math.random() * getWidth() + 100) + getWidth());
+                    l.setY((int) (Math.random() * getHeight()) - 100);
+                }
+            }
+            scoreboard.tick();
+            vidas.tick();
+        } else if (vidas.getVidas() <= 0) {
+            bGameOver = true;
+        }
     }
 
     private void render() {
@@ -206,21 +219,25 @@ public class Game implements Runnable {
             display.getCanvas().createBufferStrategy(3);
         } else {
             g = bs.getDrawGraphics();
-        if(!bGameOver) {
-            g.drawImage(Assets.background, 0, 0, width, height, null);
-            scoreboard.render(g);
-            vidas.render(g);
-            player.render(g);
-            for (Enemy e : lista) {
-                e.render(g);
+            if (!bGameOver) {
+                g.drawImage(Assets.background, 0, 0, width, height, null);
+                scoreboard.render(g);
+                vidas.render(g);
+                player.render(g);
+                for (Enemy e : lista) {
+                    e.render(g);
+                }
+                for (Good l : listaGood) {
+                    l.render(g);
+                }
+                if (paused) {
+                    g.setFont(new Font("Tahoma", Font.BOLD, 40));
+                    g.drawString("PAUSED", getWidth() - 200, getHeight() - 50);
+                }
+            } else {
+                g.drawImage(Assets.over, 0, 0, width, height, null);
+                Assets.backSound.stop();
             }
-            for(Good l: listaGood){
-                l.render(g);
-            }
-        } else {
-         g.drawImage(Assets.over, 0, 0, width, height, null);
-         Assets.backSound.stop();
-         }
             bs.show();
             g.dispose();
         }

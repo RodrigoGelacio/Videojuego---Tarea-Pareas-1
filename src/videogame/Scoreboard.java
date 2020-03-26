@@ -12,12 +12,13 @@ import java.awt.Graphics;
  *
  * @author Rodrigo
  */
-class Scoreboard extends Item{
+class Scoreboard extends Item {
+
     private int score;
-    
+
     public Scoreboard(int x, int y, int width, int height) {
         super(x, y, width, height);
-        score=0;
+        score = 0;
     }
 
     public int getScore() {
@@ -27,9 +28,7 @@ class Scoreboard extends Item{
     public void setScore(int score) {
         this.score = score;
     }
-    
-    
-    
+
     @Override
     public void tick() {
     }

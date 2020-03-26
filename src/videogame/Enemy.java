@@ -12,19 +12,19 @@ import java.awt.Graphics;
  *
  * @author Rodrigo Gelacio
  */
-public class Enemy extends Item{
+public class Enemy extends Item {
 
     private int direction;
     private int width;
     private int height;
     private Animation animationEnemy;
     private Game game;
-    
+
     public Enemy(int x, int y, int direction, int width, int height, Game game) {
-        super(x, y,width,height);
+        super(x, y, width, height);
         this.direction = direction;
         this.game = game;
-        
+
         this.animationEnemy = new Animation(Assets.moveEnemy, 100);
     }
 
@@ -32,29 +32,25 @@ public class Enemy extends Item{
         return direction;
     }
 
-
     public void setDirection(int direction) {
         this.direction = direction;
     }
 
-    
-
-
     @Override
     public void tick() {
         // moving player depending on flags
-           setX(getX() + ((int) (Math.random() * 5) + 3));
-           this.animationEnemy.tick();
-           //game.jump();
-        
+        setX(getX() + ((int) (Math.random() * 5) + 3));
+        this.animationEnemy.tick();
+        //game.jump();
+
         // reset x position and y position if colision
         /*if (getX() + 60 >= game.getWidth()) {
             setX(game.getWidth() - 60);
         }*/
-        /*else if (getX() <= -30) {
+ /*else if (getX() <= -30) {
             setX(-30);
         }*/
-        /*if (getY() + 80 >= game.getHeight()) {
+ /*if (getY() + 80 >= game.getHeight()) {
             setY(game.getHeight() - 80);
         }
         else if (getY() <= -20) {

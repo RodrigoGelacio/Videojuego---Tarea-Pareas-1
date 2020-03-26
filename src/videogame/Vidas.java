@@ -12,12 +12,13 @@ import java.awt.Graphics;
  *
  * @author Rodrigo
  */
-class Vidas extends Item{
+class Vidas extends Item {
+
     private int vidas;
-    
+
     public Vidas(int x, int y, int width, int height) {
-        super(x, y,width,height);
-        vidas=((int) Math.random() * 7) + 5;
+        super(x, y, width, height);
+        vidas = ((int) Math.random() * 7) + 5;
     }
 
     public int getVidas() {
@@ -27,9 +28,7 @@ class Vidas extends Item{
     public void setVidas(int vidas) {
         this.vidas = vidas;
     }
-    
-    
-    
+
     @Override
     public void tick() {
     }

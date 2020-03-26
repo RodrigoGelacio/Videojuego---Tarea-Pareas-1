@@ -55,20 +55,20 @@ public class Assets {
         rightH = new BufferedImage[10];
         moveEnemy = new BufferedImage[4];
         moveFriend = new BufferedImage[4];
-        
-         for(int i=0; i < 3; i++){
-               idle[i] = spritesheet.crop(i * 96, 0, 96, 96);    
+
+        for (int i = 0; i < 3; i++) {
+            idle[i] = spritesheet.crop(i * 96, 0, 96, 96);
         }
-        for (int i=0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             upH[i] = spritesheet.crop(i * 96, 624, 96, 96);
             downH[i] = spritesheet.crop(i * 96, 416, 96, 96);
-            rightH[i] = spritesheet.crop(i * 96, 728, 96, 96); 
+            rightH[i] = spritesheet.crop(i * 96, 728, 96, 96);
             leftH[i] = spritesheet.crop(i * 96, 520, 96, 96);
         }
-        for (int i=0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             moveEnemy[i] = spritesheetEnemy.crop(i * 32, 32, 32, 32);
         }
-        for (int i=0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             moveFriend[i] = spritesheetFriend.crop(i * 32, 96, 32, 32);
         }
     }
