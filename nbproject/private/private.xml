@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/VideoGame/src/images/enemy.png</file>
-            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/VideoGame/src/images/good.png</file>
-            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/VideoGame/src/images/background2.png</file>
-            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/VideoGame/src/images/mario.png</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/KeyManager.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/Good.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/Animation.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/ImageLoader.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/GameOver.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/images/enemy.png</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/images/player.png</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/Enemy.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/Display.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/Assets.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/Game.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/images/slime.png</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/Item.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/Player.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/videogame/Spritesheet.java</file>
+            <file>file:/C:/Users/Rodrigo/Documents/NetBeansProjects/TareaParejas1/src/images/link.png</file>
         </group>
     </open-files>
 </project-private>

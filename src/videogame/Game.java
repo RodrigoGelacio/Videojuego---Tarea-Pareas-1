@@ -32,7 +32,7 @@ public class Game implements Runnable {
     private KeyManager keyManager;  // to manage the keyboard
     private int counter;
     private LinkedList<Good> listaGood;
-    private GameOver gameover;
+    //private GameOver gameover;
 
     /**
      * to create title, width and height and set the game is still not running
@@ -74,7 +74,7 @@ public class Game implements Runnable {
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
         scoreboard = new Scoreboard(10, getHeight() - 10, 100, 100);
-        gameover = new GameOver(getWidth()/2, getHeight()/2,100,100);
+//        gameover = new GameOver(getWidth()/2, getHeight()/2,100,100);
         counter = 0;
         vidas = new Vidas(10, getHeight() - 30, 100, 100);
         player = new Player(getWidth() / 2 - 50, getHeight() / 2 - 50, 1, 80, 80, this);
@@ -84,20 +84,20 @@ public class Game implements Runnable {
         int azar2 = ((int) Math.random() * 15) + 10;
         for (int i = 1; i <= azar; i++) {
             //lol[i] = new Enemy(getWidth() - 100, (int) (Math.random() * getHeight()), 1, 100, 100, this);
-            Enemy enemy = new Enemy((int) (Math.random() * getWidth()) - 100, -100, 1, 80, 80, this);
+            Enemy enemy = new Enemy((int) (Math.random() * 1) - 100, (int) (Math.random() * getHeight()) - 100, 1, 80, 80, this);
             for (Enemy e : lista) {
-                while (enemy.getX() >= e.getX() && enemy.getX() <= e.getX() + 200) {
-                    enemy = new Enemy((int) (Math.random() * getWidth()) - 100, -100, 1, 80, 80, this);
+                while (enemy.getY() >= e.getY() && enemy.getY() <= e.getY() + 200) {
+                    enemy = new Enemy((int) (Math.random() * 1) - 100, (int) (Math.random() * getHeight()) - 100, 1, 80, 80, this);
                 }
             }
             lista.add(enemy);
         }
         for (int i = 1; i <= azar2; i++) {
             //lol[i] = new Enemy(getWidth() - 100, (int) (Math.random() * getHeight()), 1, 100, 100, this);
-            Good good = new Good((int) (Math.random() * getWidth()) - 100, getHeight()+150, 1, 80, 80, this);
+            Good good = new Good((int) (Math.random() * getWidth()+100) + getWidth(), (int) (Math.random() * getHeight()) - 100, 1, 80, 80, this);
             for (Good g : listaGood) {
-                while (good.getX() >= g.getX() && good.getX() <= g.getX() + 200) {
-                    g = new Good((int) (Math.random() * getWidth()) - 100, getHeight()+150, 1, 80, 80, this);
+                while (good.getY() >= g.getY() && good.getY() <= g.getY() + 200) {
+                    g = new Good((int) (Math.random() * getWidth()+100) + getWidth(), (int) (Math.random() * getHeight()) - 100, 1, 80, 80, this);
                 }
             }
             listaGood.add(good);
@@ -156,9 +156,9 @@ public class Game implements Runnable {
         player.tick();
         for (Enemy e : lista) {
             e.tick();
-            if (e.getY() + 80 == getHeight()) {
-                e.setY(-150);
-                e.setX((int) (Math.random() * getWidth()) - 100);
+            if (e.getX() + 80 >= getWidth()) {
+                e.setX((int) (Math.random() * 1) - 100);
+                e.setY((int) (Math.random() * getHeight()) - 100);
             }
             if (player.collision(e)) {
                 counter++;
@@ -170,22 +170,21 @@ public class Game implements Runnable {
                     beep();
                     stop();
                 }
-              e.setY(-150);
-              e.setX((int) (Math.random() * getWidth()) - 100);
+              e.setX((int) (Math.random() * 1) - 100);
+              e.setY((int) (Math.random() * getHeight()) - 100);
             }
         }   
-        
         for(Good l: listaGood){
             l.tick();
             if(player.collision(l)){
                 scoreboard.setScore(scoreboard.getScore() + 10);
-                l.setY(getHeight()+150);
-                l.setX((int) (Math.random() * getWidth()) - 100);
+                l.setY((int) (Math.random() * getHeight()) - 100);
+                l.setX((int) (Math.random() * getWidth()+100) + getWidth());
                 jump();
             }
-            if(l.getY() < 0){
-                 l.setY(getHeight()+150);
-                 l.setX((int) (Math.random() * getWidth()) - 100);
+            if(l.getX() < 0){
+                 l.setX((int) (Math.random() * getWidth()+100) + getWidth());
+                 l.setY((int) (Math.random() * getHeight()) - 100);
             }
         }
         scoreboard.tick();
@@ -238,7 +237,6 @@ public class Game implements Runnable {
     public synchronized void stop() {
         if (running) {
             running = false;
-            gameover.render(g);
             try {
                 thread.join();
             } catch (InterruptedException ie) {

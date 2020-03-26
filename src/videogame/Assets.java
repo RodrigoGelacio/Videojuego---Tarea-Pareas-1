@@ -15,18 +15,21 @@ public class Assets {
 
     public static BufferedImage background; // to store background image
     public static BufferedImage player;     // to store the player image
-    public static BufferedImage enemy;
     public static BufferedImage good;
     public static SoundClip backSound;
     public static SoundClip gunShot;
     public static SoundClip jump;
     public static BufferedImage over;
-    public static BufferedImage sprite;
-    public static BufferedImage up[];
-    public static BufferedImage down[];
-    public static BufferedImage left[];
-    public static BufferedImage right[];
+    public static BufferedImage spriteHero;
+    public static BufferedImage spriteEnemy;
+    public static BufferedImage spriteFriend;
+    public static BufferedImage upH[];
+    public static BufferedImage downH[];
+    public static BufferedImage leftH[];
+    public static BufferedImage rightH[];
     public static BufferedImage idle[];
+    public static BufferedImage moveEnemy[];
+    public static BufferedImage moveFriend[];
 
     /**
      * initializing the images of the game
@@ -35,27 +38,38 @@ public class Assets {
         background = ImageLoader.loadImage("/images/background2.png");
         good = ImageLoader.loadImage("/images/good.png");
         player = ImageLoader.loadImage("/images/player.png");
-        enemy = ImageLoader.loadImage("/images/enemy.png");
         backSound = new SoundClip("/sounds/back.wav");
         gunShot = new SoundClip("/sounds/Gunshot.wav");
         jump = new SoundClip("/sounds/jump.wav");
         over = ImageLoader.loadImage("/images/over.png");
-        sprite = ImageLoader.loadImage("/images/link.png");
-        Spritesheet spritesheet = new Spritesheet(sprite);
+        spriteHero = ImageLoader.loadImage("/images/link.png");
+        spriteEnemy = ImageLoader.loadImage("/images/slime.png");
+        spriteFriend = ImageLoader.loadImage("/images/slimeGood.png");
+        Spritesheet spritesheetEnemy = new Spritesheet(spriteEnemy);
+        Spritesheet spritesheetFriend = new Spritesheet(spriteFriend);
+        Spritesheet spritesheet = new Spritesheet(spriteHero);
         idle = new BufferedImage[3];
-        up = new BufferedImage[10];
-        down = new BufferedImage[10];
-        left = new BufferedImage[10];
-        right = new BufferedImage[10];
+        upH = new BufferedImage[10];
+        downH = new BufferedImage[10];
+        leftH = new BufferedImage[10];
+        rightH = new BufferedImage[10];
+        moveEnemy = new BufferedImage[4];
+        moveFriend = new BufferedImage[4];
         
          for(int i=0; i < 3; i++){
                idle[i] = spritesheet.crop(i * 96, 0, 96, 96);    
         }
         for (int i=0; i < 10; i++){
-            up[i] = spritesheet.crop(i * 96, 624, 96, 96);
-            down[i] = spritesheet.crop(i * 96, 416, 96, 96);
-            right[i] = spritesheet.crop(i * 96, 728, 96, 96); 
-            left[i] = spritesheet.crop(i * 96, 520, 96, 96);
+            upH[i] = spritesheet.crop(i * 96, 624, 96, 96);
+            downH[i] = spritesheet.crop(i * 96, 416, 96, 96);
+            rightH[i] = spritesheet.crop(i * 96, 728, 96, 96); 
+            leftH[i] = spritesheet.crop(i * 96, 520, 96, 96);
+        }
+        for (int i=0; i < 4; i++){
+            moveEnemy[i] = spritesheetEnemy.crop(i * 32, 32, 32, 32);
+        }
+        for (int i=0; i < 4; i++){
+            moveFriend[i] = spritesheetFriend.crop(i * 32, 96, 32, 32);
         }
     }
 

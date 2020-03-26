@@ -17,11 +17,13 @@ public class Good extends Item{
     private int width;
     private int height;
     private Game game;
+    private Animation animationFriend;
     
     public Good(int x, int y, int direction, int width, int height, Game game) {
         super(x, y,width,height);
         this.direction = direction;
         this.game = game;
+        this.animationFriend = new Animation(Assets.moveFriend,100);
     }
 
     public int getDirection() {
@@ -39,16 +41,17 @@ public class Good extends Item{
     @Override
     public void tick() {
         // moving player depending on flags
-           setY(getY() - ((int) (Math.random() * 4) + 2));
+           setX(getX() - ((int) (Math.random() * 4) + 2));
+           this.animationFriend.tick();
            //game.jump();
         
         // reset x position and y position if colision
-        if (getX() + 60 >= game.getWidth()) {
+        /*if (getX() + 60 >= game.getWidth()) {
             setX(game.getWidth() - 60);
         }
         else if (getX() <= -30) {
             setX(-30);
-        }
+        }*/
         /*if (getY() + 80 >= game.getHeight()) {
             setY(game.getHeight() - 80);
         }*/
@@ -59,6 +62,6 @@ public class Good extends Item{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.good, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(animationFriend.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
     }
 }

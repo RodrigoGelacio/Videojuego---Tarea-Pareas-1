@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,12 +17,15 @@ public class Enemy extends Item{
     private int direction;
     private int width;
     private int height;
+    private Animation animationEnemy;
     private Game game;
     
     public Enemy(int x, int y, int direction, int width, int height, Game game) {
         super(x, y,width,height);
         this.direction = direction;
         this.game = game;
+        
+        this.animationEnemy = new Animation(Assets.moveEnemy, 100);
     }
 
     public int getDirection() {
@@ -39,26 +43,27 @@ public class Enemy extends Item{
     @Override
     public void tick() {
         // moving player depending on flags
-           setY(getY() + ((int) (Math.random() * 5) + 3));
+           setX(getX() + ((int) (Math.random() * 5) + 3));
+           this.animationEnemy.tick();
            //game.jump();
         
         // reset x position and y position if colision
-        if (getX() + 60 >= game.getWidth()) {
+        /*if (getX() + 60 >= game.getWidth()) {
             setX(game.getWidth() - 60);
-        }
-        else if (getX() <= -30) {
+        }*/
+        /*else if (getX() <= -30) {
             setX(-30);
-        }
-        if (getY() + 80 >= game.getHeight()) {
+        }*/
+        /*if (getY() + 80 >= game.getHeight()) {
             setY(game.getHeight() - 80);
         }
-        /*else if (getY() <= -20) {
+        else if (getY() <= -20) {
             setY(-20);
         }*/
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.enemy, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(animationEnemy.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
     }
 }

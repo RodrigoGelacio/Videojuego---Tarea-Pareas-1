@@ -29,10 +29,10 @@ public class Player extends Item{
         this.direction = direction;
         this.game = game;
         
-        this.animationUp = new Animation(Assets.up, 100);
-        this.animationDown = new Animation(Assets.down, 100);
-        this.animationLeft = new Animation(Assets.left, 100);
-        this.animationRight = new Animation(Assets.right, 100);
+        this.animationUp = new Animation(Assets.upH, 100);
+        this.animationDown = new Animation(Assets.downH, 100);
+        this.animationLeft = new Animation(Assets.leftH, 100);
+        this.animationRight = new Animation(Assets.rightH, 100);
         this.animationIdle = new Animation(Assets.idle, 100);
     }
 
