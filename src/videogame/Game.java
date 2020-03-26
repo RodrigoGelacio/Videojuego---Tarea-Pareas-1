@@ -32,7 +32,7 @@ public class Game implements Runnable {
     private KeyManager keyManager;  // to manage the keyboard
     private int counter;
     private LinkedList<Good> listaGood;
-    //private GameOver gameover;
+    private boolean bGameOver = false;
 
     /**
      * to create title, width and height and set the game is still not running
@@ -151,6 +151,7 @@ public class Game implements Runnable {
     }
 
     private void tick() {
+       if(vidas.getVidas() > 0){
         keyManager.tick();
         // avancing player with colision
         player.tick();
@@ -165,10 +166,6 @@ public class Game implements Runnable {
                 if(counter == 3){
                     vidas.setVidas(vidas.getVidas() - 1);
                     counter =0;
-                }
-                if(vidas.getVidas() == 0){
-                    beep();
-                    stop();
                 }
               e.setX((int) (Math.random() * 1) - 100);
               e.setY((int) (Math.random() * getHeight()) - 100);
@@ -189,6 +186,11 @@ public class Game implements Runnable {
         }
         scoreboard.tick();
         vidas.tick();
+       }
+       else {
+       bGameOver = true;
+       
+       }
     }
 
     private void render() {
@@ -204,6 +206,7 @@ public class Game implements Runnable {
             display.getCanvas().createBufferStrategy(3);
         } else {
             g = bs.getDrawGraphics();
+        if(!bGameOver) {
             g.drawImage(Assets.background, 0, 0, width, height, null);
             scoreboard.render(g);
             vidas.render(g);
@@ -214,6 +217,10 @@ public class Game implements Runnable {
             for(Good l: listaGood){
                 l.render(g);
             }
+        } else {
+         g.drawImage(Assets.over, 0, 0, width, height, null);
+         Assets.backSound.stop();
+         }
             bs.show();
             g.dispose();
         }
