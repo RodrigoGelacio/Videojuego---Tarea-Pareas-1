@@ -16,12 +16,24 @@ public class Player extends Item{
     private int direction;
     private int width;
     private int height;
+    private Animation animationUp;
+    private Animation animationDown;
+    private Animation animationLeft;
+    private Animation animationRight;
+    private Animation animationIdle;
+    private int control;
     private Game game;
     
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y,width,height);
         this.direction = direction;
         this.game = game;
+        
+        this.animationUp = new Animation(Assets.up, 100);
+        this.animationDown = new Animation(Assets.down, 100);
+        this.animationLeft = new Animation(Assets.left, 100);
+        this.animationRight = new Animation(Assets.right, 100);
+        this.animationIdle = new Animation(Assets.idle, 100);
     }
 
     public int getDirection() {
@@ -36,25 +48,30 @@ public class Player extends Item{
     @Override
     public void tick() {
         // moving player depending on flags
-        if (game.getKeyManager().northWest) {
-           setY(getY() - 1);
-           setX(getX() - 1);
-           //game.jump();
+   if(game.getKeyManager().right){
+            this.animationRight.tick();
+            setX(getX() + 3);
+            control = 1;
         }
-        if (game.getKeyManager().northEast) {
-           setY(getY() - 1);
-           setX(getX() + 1);
-           //game.jump();
+                if(game.getKeyManager().left){
+            this.animationLeft.tick();
+            setX(getX() - 3);
+            control = 3;
         }
-        if (game.getKeyManager().southEast) {
-           setX(getX() + 1);
-           setY(getY() + 1);
-           //game.jump();
+        if(game.getKeyManager().up){
+            this.animationUp.tick();
+            setY(getY() - 3);
+            control = 2;
         }
-        if (game.getKeyManager().southWest) {
-           setX(getX() - 1);
-           setY(getY() + 1);
-           //game.jump();
+        if(game.getKeyManager().down){
+            this.animationDown.tick();
+            setY(getY() + 3);
+            control = 4;
+        }
+        if(game.getKeyManager().up == false && game.getKeyManager().down == false
+        && game.getKeyManager().left == false && game.getKeyManager().right == false){
+            animationIdle.tick();
+            control = 0;
         }
         // reset x position and y position if colision
         if (getX() + 60 >= game.getWidth()) {
